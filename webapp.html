@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Riddle Generator</title>
+    <style>
+        /* CSS internal to the page as requested */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff; /* Alice Blue */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .app-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #1177f4;
+            margin-bottom: 20px;
+        }
+
+        #riddle-display {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            min-height: 60px;
+            color: #333;
+        }
+
+        #answer-display {
+            font-weight: bold;
+            color: #28a745;
+            margin: 15px 0;
+            height: 24px; /* Prevents jumping when text appears */
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #1177f4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            color: #547fb8;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>🌍 Travel Riddle Generator</h1>
+        
+        <div id="riddle-display">Click the button to start your journey...</div>
+        <div id="answer-display"></div>
+
+        <div class="btn-group">
+            <button onclick="generateRiddle()">New Riddle</button>
+            <button onclick="showAnswer()" style="background-color: #6c757d;">Show Answer</button>
+        </div>
+
+        <a href="fromstratch.html" class="back-link">← Back to Travel Destinations</a>
+    </div>
+
+    <script>
+        // JavaScript logic
+        const riddles = [
+            { q: "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?", a: "A Map" },
+            { q: "I have a heart that doesn't beat, but I've visited every continent. What am I?", a: "An Artichoke (just kidding, it's a Postage Stamp!)" },
+            { q: "You step on me to go places, but I never move. What am I?", a: "A Road" },
+            { q: "I go through towns and over hills, but I never move. What am I?", a: "A Path" },
+            { q: "What has to be broken before you can use it, especially on a tropical breakfast?", a: "An Coconut" },
+            { q: "I fly without wings and cry without eyes. I travel across the sky. What am I?", a: "A Cloud" }
+        ];
+
+        let currentRiddleIndex = -1;
+
+        function generateRiddle() {
+            const display = document.getElementById('riddle-display');
+            const answerDisplay = document.getElementById('answer-display');
+            
+            // Pick a random riddle that isn't the same as the last one
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * riddles.length);
+            } while (newIndex === currentRiddleIndex);
+
+            currentRiddleIndex = newIndex;
+            display.innerText = riddles[currentRiddleIndex].q;
+            answerDisplay.innerText = ""; // Hide previous answer
+        }
+
+        function showAnswer() {
+            const answerDisplay = document.getElementById('answer-display');
+            if (currentRiddleIndex !== -1) {
+                answerDisplay.innerText = riddles[currentRiddleIndex].a;
+            } else {
+                answerDisplay.innerText = "Get a riddle first!";
+            }
+        }
+    </script>
+</body>
+</html>
